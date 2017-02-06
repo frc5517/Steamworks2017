@@ -35,11 +35,11 @@ public class DriveTrain extends Subsystem {
      */
     public void drive(double x, double y, double r) {
     	double left, right, back;
-    	final double sinPi6 = 0.5; // sin of pi/6
-    	final double cosPi6 = Math.sqrt(3)/2; // cosine of pi/6 (30 degrees)
+    	final double sin11Pi6 = -0.5; // sine of 11pi/6
+    	final double cos11Pi6 = Math.sqrt(3)/2; // cosine of 11pi/6 (30 degrees)
     	
-    	left = -sinPi6 * x - cosPi6 * y + r;
-    	right = -sinPi6 * x + cosPi6 * y + r;
+    	left = sin11Pi6 * x - cos11Pi6 * y + r;
+    	right = sin11Pi6 * x + cos11Pi6 * y + r;
     	back = x + r;
     	
     	leftMotors.set(left);
