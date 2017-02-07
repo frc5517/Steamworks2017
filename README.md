@@ -3,12 +3,18 @@ FRC Team 5517's repository for the 2017 game, Steamworks.
 
 ![Steamworks](http://firstinspires.org/sites/default/files/uploads/resource_library/frc/game-and-season-info/competition-manual/2017/first-steamworks-transparent-logo.png)
 
-##Java Docs
+## Java Docs
 The Official WPILib Java documentation can be found
 [here](https://wpilib.screenstepslive.com/s/4485/m/13809)
 
+## Installing Eclipse
+
+Follow the steps in this [WPILib ScreenSteps tutorial](http://wpilib.screenstepslive.com/s/4485/m/13809/l/599681-installing-eclipse-c-java) (ignoring C++ steps).
+
 ## FRC Plugins
 ### How to install FRC plugins
+This is in the tutorial also, but I thought I'd just throw this in here.
+
 1. Open Eclipse
 2. Select "Help" on the top menu bar
 3. Click "Install New Software"
