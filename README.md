@@ -4,8 +4,9 @@ FRC Team 5517's repository for the 2017 game, Steamworks.
 ![Steamworks](http://firstinspires.org/sites/default/files/uploads/resource_library/frc/game-and-season-info/competition-manual/2017/first-steamworks-transparent-logo.png)
 
 ## Java Docs
-The Official WPILib Java documentation can be found
-[here](https://wpilib.screenstepslive.com/s/4485/m/13809)
+See the [Official WPILib Java documentation](https://wpilib.screenstepslive.com/s/4485/m/13809)
+
+Also: [Command-Based Programming](https://wpilib.screenstepslive.com/s/4485/m/13809/c/88893)
 
 ## Installing Eclipse
 
