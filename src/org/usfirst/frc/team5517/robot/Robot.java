@@ -54,6 +54,8 @@ public class Robot extends IterativeRobot {
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		//SmartDashboard.putData("Auto mode", chooser);
+		
+		System.out.println("Robot Initialized");
 	}
 
 	/**
@@ -63,7 +65,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		System.out.println("Robot Disabled");
 	}
 
 	@Override
@@ -101,6 +103,8 @@ public class Robot extends IterativeRobot {
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+		
+		System.out.println("Autonomous Initialized");
 	}
 
 	/**
@@ -121,6 +125,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		
 		System.out.println("Initial Drivetrain Heading: " + driveTrain.getHeading());
+		System.out.println("Teleop Initialized");
 	}
 
 	/**
@@ -144,8 +149,6 @@ public class Robot extends IterativeRobot {
 		
 		// If the gyro is drifting, re-initialize/calibrate it
 		// Thanks FRC 2168!
-		
-		//System.out.println("reinit gyro called");
 		
 		curAngle = driveTrain.getHeading();
 		gyroCalibrating = driveTrain.isGyroCalibrating();
