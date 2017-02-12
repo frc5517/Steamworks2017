@@ -27,10 +27,13 @@ public class Drive extends Command {
     	// Drive robot with the x and y from left joystick,
     	// and the x from the right joystick (for rotation)
    
+		double rightStick;
 		Robot.driveTrain.drive(
-    		-oi.getDriverRightX(),
+    		0.5*-oi.getDriverLeftX(),
     		oi.getDriverLeftY(), 
-    		oi.getDriverLeftX()
+    		oi.getDriverRightX(),    		
+    		1.75*oi.getDriverRightY(),
+    		oi.getDriverRightX()
     	);
     }
 
