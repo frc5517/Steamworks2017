@@ -3,6 +3,7 @@ package org.usfirst.frc.team5517.robot;
 
 import org.usfirst.frc.team5517.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5517.robot.subsystems.Intake;
+import org.usfirst.frc.team5517.robot.utils.Debouncer;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,6 +23,16 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Intake intake = new Intake();
 	public static OI oi;
+	
+	public boolean matchStarted = false;
+	
+	// Gyro variables
+	private double curAngle;
+	private double lastAngle;
+	private boolean gyroCalibrating;
+	private boolean lastGyroCalibrating;
+	private int gyroReinits;
+	private Debouncer gyroDriftDetector;
 
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
@@ -32,7 +43,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		
+		// Create controls
 		oi = new OI();
+		
+		// Gyro stuff
+		gyroDriftDetector = new Debouncer(1.0);
+		driveTrain.calibrateGyro();
+		
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		//chooser.addObject("My Auto", new MyAutoCommand());
 		//SmartDashboard.putData("Auto mode", chooser);
@@ -51,6 +69,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		reinitGyro();
 	}
 
 	/**
@@ -66,6 +85,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		
+		matchStarted = true;
 		autonomousCommand = chooser.getSelected();
 
 		/*
@@ -96,6 +117,8 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
+		
+		System.out.println("Drivetrain Heading: " + driveTrain.getHeading());
 	}
 
 	/**
@@ -113,4 +136,32 @@ public class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		LiveWindow.run();
 	}
+	
+	public void reinitGyro() {
+		
+		// If the gyro is drifting, re-initialize/calibrate it
+		// Thanks FRC 2168!
+		
+		curAngle = driveTrain.getHeading();
+		gyroCalibrating = driveTrain.isGyroCalibrating();
+
+		if (lastGyroCalibrating && !gyroCalibrating) {
+			//if we've just finished calibrating the gyro, reset
+			gyroDriftDetector.reset();
+			curAngle = driveTrain.getHeading();
+			System.out.println("Finished auto-reinit gyro");
+		} 
+		else if (gyroDriftDetector.update(Math.abs(curAngle - lastAngle) > (0.75 / 50.0))
+				&& !matchStarted && !gyroCalibrating) {
+			//&& gyroReinits < 3) {
+			gyroReinits++;
+			System.out.println("!!! Sensed drift, about to auto-reinit gyro (#"+ gyroReinits + ")");
+			driveTrain.calibrateGyro();
+		}
+
+		lastAngle = curAngle;
+		lastGyroCalibrating = gyroCalibrating;
+		
+	}
+	
 }

@@ -2,8 +2,8 @@ package org.usfirst.frc.team5517.robot.subsystems;
 
 import org.usfirst.frc.team5517.robot.RobotMap;
 import org.usfirst.frc.team5517.robot.commands.Drive;
+import org.usfirst.frc.team5517.robot.sensors.ADXRS453Gyro;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -12,16 +12,16 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-    Talon leftMotors;
-    Talon rightMotors;
-    Talon backMotors;
-    ADXRS450_Gyro gyro;
+    private Talon leftMotors;
+    private Talon rightMotors;
+    private Talon backMotors;
+    private ADXRS453Gyro gyro;
     
     public DriveTrain() {
     	leftMotors = new Talon(RobotMap.leftDriveMotorPWMPort);
     	rightMotors = new Talon(RobotMap.rightDriveMotorPWMPort);
     	backMotors = new Talon(RobotMap.backDriveMotorPWMPort);
-    	gyro = new ADXRS450_Gyro();
+    	gyro = new ADXRS453Gyro();
     }
 
     @Override
@@ -59,6 +59,18 @@ public class DriveTrain extends Subsystem {
 
     }
     
+    public double getHeading() {
+    	return gyro.getAngle();
+    }
+    
+    public boolean isGyroCalibrating() {
+    	return gyro.isCalibrating();
+    }
+    
+    public void calibrateGyro() {
+    	gyro.calibrate();
+    }
+    
     /**
      * Stop robot drive train
      */
@@ -67,10 +79,6 @@ public class DriveTrain extends Subsystem {
     	rightMotors.set(0);
     	backMotors.set(0);
     }
-
-	public void drive(double x, double driverLeftY, double driverRightX, double s) {
-		// TODO Auto-generated method stub
-		
-	}
+    
 }
 
