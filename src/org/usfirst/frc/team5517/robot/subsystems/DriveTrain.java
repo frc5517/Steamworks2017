@@ -3,6 +3,7 @@ package org.usfirst.frc.team5517.robot.subsystems;
 import org.usfirst.frc.team5517.robot.RobotMap;
 import org.usfirst.frc.team5517.robot.commands.Drive;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -14,11 +15,13 @@ public class DriveTrain extends Subsystem {
     Talon leftMotors;
     Talon rightMotors;
     Talon backMotors;
+    AnalogGyro gyro;
     
     public DriveTrain() {
     	leftMotors = new Talon(RobotMap.leftDriveMotorPWMPort);
     	rightMotors = new Talon(RobotMap.rightDriveMotorPWMPort);
     	backMotors = new Talon(RobotMap.backDriveMotorPWMPort);
+    	gyro = new AnalogGyro(0);
     }
 
     @Override
@@ -42,9 +45,12 @@ public class DriveTrain extends Subsystem {
     	right = sin11Pi6 * x + cos11Pi6 * y + r;
     	back = x + r;
     	
-    	leftMotors.set(left);
-    	rightMotors.set(right);
-    	backMotors.set(back);
+    	leftMotors.set(left/1.75);
+    	rightMotors.set(right/1.75);
+    	backMotors.set(-back);
+    	System.out.println(gyro.getAngle());
+    	;
+
     }
     
     /**

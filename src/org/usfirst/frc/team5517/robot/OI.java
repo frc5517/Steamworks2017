@@ -9,11 +9,11 @@ import org.usfirst.frc.team5517.robot.utils.Gamepad;
 public class OI {
 	
 	private Gamepad driverGamepad;
-	private Gamepad operatorGamepad;
+	//private Gamepad operatorGamepad;
 	
 	public OI() {
 		driverGamepad = new Gamepad(RobotMap.driverGamepadID);
-		operatorGamepad = new Gamepad(RobotMap.operatorGamepadID);
+		//operatorGamepad = new Gamepad(RobotMap.operatorGamepadID);
 		bindControls();
 	}
 	
