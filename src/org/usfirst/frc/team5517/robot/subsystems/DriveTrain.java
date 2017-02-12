@@ -22,6 +22,7 @@ public class DriveTrain extends Subsystem {
     	rightMotors = new Talon(RobotMap.rightDriveMotorPWMPort);
     	backMotors = new Talon(RobotMap.backDriveMotorPWMPort);
     	gyro = new ADXRS453Gyro();
+    	gyro.startThread();
     }
 
     @Override
@@ -56,6 +57,8 @@ public class DriveTrain extends Subsystem {
     		leftMotors.set(left/1.6);
     		rightMotors.set(right/1.75);
     	}
+		
+		//System.out.println("Drivetrain Heading: " + getHeading());
 
     }
     
@@ -69,6 +72,10 @@ public class DriveTrain extends Subsystem {
     
     public void calibrateGyro() {
     	gyro.calibrate();
+    }
+    
+    public void stopCalibrating() {
+    	gyro.stopCalibrating();
     }
     
     /**

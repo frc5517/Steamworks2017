@@ -88,6 +88,8 @@ public class Robot extends IterativeRobot {
 		
 		matchStarted = true;
 		autonomousCommand = chooser.getSelected();
+		
+		driveTrain.stopCalibrating();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -118,7 +120,7 @@ public class Robot extends IterativeRobot {
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
-		System.out.println("Drivetrain Heading: " + driveTrain.getHeading());
+		System.out.println("Initial Drivetrain Heading: " + driveTrain.getHeading());
 	}
 
 	/**
@@ -126,6 +128,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		System.out.println("Drivetrain Heading: " + driveTrain.getHeading());
 		Scheduler.getInstance().run();
 	}
 
@@ -141,6 +144,8 @@ public class Robot extends IterativeRobot {
 		
 		// If the gyro is drifting, re-initialize/calibrate it
 		// Thanks FRC 2168!
+		
+		//System.out.println("reinit gyro called");
 		
 		curAngle = driveTrain.getHeading();
 		gyroCalibrating = driveTrain.isGyroCalibrating();
