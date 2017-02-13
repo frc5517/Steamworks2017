@@ -51,14 +51,11 @@ public class DriveTrain extends Subsystem {
     	leftMotors.set(left);
     	rightMotors.set(right);
     	backMotors.set(back);
-    	System.out.println(gyro.getAngle());
 
     	if(rightStick > 0.1 || rightStick < -0.1)  {
     		leftMotors.set(left/1.6);
     		rightMotors.set(right/1.75);
     	}
-		
-		//System.out.println("Drivetrain Heading: " + getHeading());
 
     }
     
