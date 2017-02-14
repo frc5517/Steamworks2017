@@ -65,6 +65,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		matchStarted = false;
 		System.out.println("Robot Disabled");
 	}
 
@@ -87,12 +88,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		
+	
 		matchStarted = true;
-		autonomousCommand = chooser.getSelected();
-		
 		driveTrain.stopCalibrating();
 
+		autonomousCommand = chooser.getSelected();
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
