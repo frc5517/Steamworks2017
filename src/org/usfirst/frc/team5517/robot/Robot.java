@@ -1,7 +1,9 @@
 
 package org.usfirst.frc.team5517.robot;
 
+import org.usfirst.frc.team5517.robot.subsystems.Climber;
 import org.usfirst.frc.team5517.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team5517.robot.subsystems.DumpDoor;
 import org.usfirst.frc.team5517.robot.subsystems.Intake;
 import org.usfirst.frc.team5517.robot.utils.Debouncer;
 
@@ -22,6 +24,8 @@ public class Robot extends IterativeRobot {
 
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static final Intake intake = new Intake();
+	public static final DumpDoor dumpDoor = new DumpDoor();
+	public static final Climber climber = new Climber();
 	public static OI oi;
 	
 	public boolean matchStarted = false;

@@ -31,6 +31,11 @@ public class Climber extends Subsystem {
     public void down() {
     	climbMotor.set(-CLIMB_SPEED);
     }
+
+	public void stop() {
+		climbMotor.set(0);
+		
+	}
     
 }
 

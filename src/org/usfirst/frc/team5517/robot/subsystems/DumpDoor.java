@@ -15,6 +15,7 @@ public class DumpDoor extends Subsystem {
 	public DumpDoor() {
 		dumpMotor = new Talon(RobotMap.dumpMotorPWMPort);
 	}
+	
 	@Override
 	protected void initDefaultCommand() {
 		//setDefaultCommand();
@@ -25,7 +26,7 @@ public class DumpDoor extends Subsystem {
 	}
 	
 	public void close() {
-		dumpMotor.set(CLOSE_SPEED);
+		dumpMotor.set(-CLOSE_SPEED);
 	}
 	
 	public void stop() {

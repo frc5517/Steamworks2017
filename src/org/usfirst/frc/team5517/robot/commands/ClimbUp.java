@@ -7,11 +7,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class SpinIntakeRollerIn extends Command {
+public class ClimbUp extends Command {
 
-    public SpinIntakeRollerIn() {
+    public ClimbUp() {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.intake);
+        requires(Robot.climber);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +22,7 @@ public class SpinIntakeRollerIn extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-    	Robot.intake.spinRollerIn();
+    	Robot.climber.up();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,13 +34,12 @@ public class SpinIntakeRollerIn extends Command {
     // Called once after isFinished returns true
     @Override
 	protected void end() {
-    	Robot.intake.stopRoller();
+    	Robot.climber.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
 	protected void interrupted() {
-    	end();
     }
 }

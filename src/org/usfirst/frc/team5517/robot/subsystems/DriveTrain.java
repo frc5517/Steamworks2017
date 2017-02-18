@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
+	private final double JOYSTICK_TOLERANCE = 0.05;
+	
     private Talon leftMotors;
     private Talon rightMotors;
     private Talon backMotors;
@@ -46,14 +48,23 @@ public class DriveTrain extends Subsystem {
     	double left, right, back;
     	//final double sin11Pi6 = -0.5; // sine of 11pi/6
     	//final double cos11Pi6 = 1.732050807568877/2; // sqrt(3)/2 cosine of 11pi/6 (30 degrees)
-    	double diff = Math.abs(getHeading()-setAngle);
+    	double currentAngle = getHeading();
+    	double diff = Math.abs(currentAngle-setAngle);
     	P = 0;
     	
-    	
+    	// scale down rotation
     	r = r/2;
     	
-    	if(r < -0.1 || r > 0.1){
-    		setAngle = getHeading();
+    	// check if rotation input is within the joystick tolerance
+    	// if so, don't rotate
+    	if ( (r > 0 && r < JOYSTICK_TOLERANCE) || (r < 0 && r > -JOYSTICK_TOLERANCE) ) {
+    		r = 0;
+    	}
+    	
+    	// if rotation input is not within joystick tolerance
+    	// then update the target angle
+    	if(r < JOYSTICK_TOLERANCE || r > JOYSTICK_TOLERANCE){
+    		setAngle = currentAngle;
     		System.out.println("updating setAngle: " + setAngle);
     	}
     	else {
@@ -61,13 +72,14 @@ public class DriveTrain extends Subsystem {
 	    	//System.out.println("setAngle: " + setAngle);
 			System.out.print("diff: " + diff);
 			
+			// if diff is big enough, rotate to compensate
 			if(diff > 3) {
 				
-				if(setAngle >= getHeading()) {
+				if(setAngle >= currentAngle) {
 					System.out.println("compensate right");
 					P += 0.15;
 				}
-				else if(setAngle <= getHeading()) {
+				else if(setAngle <= currentAngle) {
 					System.out.println("compensate left");
 					P -= 0.15;
 				}
@@ -81,24 +93,10 @@ public class DriveTrain extends Subsystem {
 			}*/
     	}
     	
-    	/*if(setAngle > 0 && diff > 0.5 ) {
-    		System.out.println("compensating right");
-    		x += 0.2;
-    	}
-    	else if(setAngle < 0 && diff > 0.5) {
-    		System.out.println("compensating left");
-    		x -= 0.2;
-    	}*/
-    	
+    	// calculate wheel speeds from inputs
     	left = (-0.5 * x - Math.sqrt(3)/2 * y) + r + P;
     	right = (-0.5 * x + Math.sqrt(3)/2 * y) + r + P;
     	back = x + r + P;
-    	
-    	/*if(P < 0){
-    		left = -left;
-    		right = -right;
-    		back = -back;
-    	}*/
     	
     	leftMotors.set(left);
     	rightMotors.set(right);

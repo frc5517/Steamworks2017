@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 	
 	private final double ROLLER_IN_SPEED = 0.7;
+	private final double ROLLER_OUT_SPEED = 0.7;
 	private final double LIFT_SPEED = 0.7;
 	private final double LOWER_SPEED = 0.7;
 
@@ -32,12 +33,16 @@ public class Intake extends Subsystem {
     	intakeMotor.set(ROLLER_IN_SPEED);
     }
     
+    public void spinRollerOut() {
+    	intakeMotor.set(-ROLLER_OUT_SPEED);
+    }
+    
     public void liftIntake() {
     	intakeLiftMotor.set(LIFT_SPEED);
     }
     
     public void lowerIntake() {
-    	intakeLiftMotor.set(LOWER_SPEED);
+    	intakeLiftMotor.set(-LOWER_SPEED);
     }
     
     public void stopIntakeLift() {
