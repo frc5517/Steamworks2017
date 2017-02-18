@@ -136,7 +136,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		System.out.println("Drivetrain Heading: " + driveTrain.getHeading());
+		//System.out.println("Drivetrain Heading: " + driveTrain.getHeading());
 		Scheduler.getInstance().run();
 	}
 
