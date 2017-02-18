@@ -11,21 +11,37 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 	
 	private final double ROLLER_IN_SPEED = 0.7;
+	private final double LIFT_SPEED = 0.7;
+	private final double LOWER_SPEED = 0.7;
 
     private Talon intakeMotor;
+    private Talon intakeLiftMotor;
     
     public Intake() {
     	intakeMotor = new Talon(RobotMap.intakeMotorPWMPort);
+    	intakeLiftMotor = new Talon(RobotMap.intakeLiftMotorPWMPort);
     }
 
     @Override
-	public void initDefaultCommand() {
+	protected void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new Intake());
     }
     
     public void spinRollerIn() {
     	intakeMotor.set(ROLLER_IN_SPEED);
+    }
+    
+    public void liftIntake() {
+    	intakeLiftMotor.set(LIFT_SPEED);
+    }
+    
+    public void lowerIntake() {
+    	intakeLiftMotor.set(LOWER_SPEED);
+    }
+    
+    public void stopIntakeLift() {
+    	intakeLiftMotor.set(0);
     }
     
     public void stopRoller() {

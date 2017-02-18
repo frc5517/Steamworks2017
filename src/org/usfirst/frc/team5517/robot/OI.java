@@ -1,5 +1,8 @@
 package org.usfirst.frc.team5517.robot;
 
+import org.usfirst.frc.team5517.robot.commands.LiftIntake;
+import org.usfirst.frc.team5517.robot.commands.LowerIntake;
+import org.usfirst.frc.team5517.robot.commands.SpinIntakeRollerIn;
 import org.usfirst.frc.team5517.robot.utils.Gamepad;
 
 /**
@@ -9,16 +12,19 @@ import org.usfirst.frc.team5517.robot.utils.Gamepad;
 public class OI {
 	
 	private Gamepad driverGamepad;
-	//private Gamepad operatorGamepad;
+	private Gamepad operatorGamepad;
 	
 	public OI() {
 		driverGamepad = new Gamepad(RobotMap.driverGamepadID);
-		//operatorGamepad = new Gamepad(RobotMap.operatorGamepadID);
+		operatorGamepad = new Gamepad(RobotMap.operatorGamepadID);
 		bindControls();
 	}
 	
 	private void bindControls() {
-		
+		operatorGamepad.getButtonA().whenPressed(new SpinIntakeRollerIn());
+		operatorGamepad.getButtonY().whenPressed(new LiftIntake());
+		operatorGamepad.getButtonX().whenPressed(new LowerIntake());
+		//operatorGamepad.getButtonA().whenPressed(new ());
 	}
 	
 	public double getDriverLeftX() {
