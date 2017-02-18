@@ -18,6 +18,7 @@ public class RobotMap {
 	leftDriveMotorPWMPort  = 0,
 	rightDriveMotorPWMPort = 1,
 	backDriveMotorPWMPort  = 2,
-	intakeMotorPWMPort = 3;
+	intakeMotorPWMPort = 3,
+	climberMotorPWMPort = 4;
 	
 }

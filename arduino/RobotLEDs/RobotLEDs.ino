@@ -2,7 +2,7 @@
 #include <FastLED.h>
 
 #define I2C_ADDRESS 4
-#define DATA_PIN 6
+#define DATA_PIN 7
 #define LED_COUNT 60
 
 // Colors

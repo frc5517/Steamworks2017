@@ -91,7 +91,7 @@ public class DriveTrain extends Subsystem {
     	}*/
     	
     	left = (-0.5 * x - Math.sqrt(3)/2 * y) + r + P;
-    	right =( -0.5 * x + Math.sqrt(3)/2 * y) + r + P;
+    	right = (-0.5 * x + Math.sqrt(3)/2 * y) + r + P;
     	back = x + r + P;
     	
     	/*if(P < 0){
@@ -109,7 +109,7 @@ public class DriveTrain extends Subsystem {
 
     }
     
-    private double correctedAngle(double angle){
+    private double getCorrectedAngle(double angle){
     	return angle + 360*Math.floor(0.5-angle/360);
     }
     
@@ -118,7 +118,7 @@ public class DriveTrain extends Subsystem {
     }
     
     public double getHeading() {
-    	return correctedAngle(gyro.getAngle());
+    	return getCorrectedAngle(gyro.getAngle());
     }
     
     public boolean isGyroCalibrating() {
