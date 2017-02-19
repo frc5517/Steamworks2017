@@ -107,6 +107,10 @@ public class DriveTrain extends Subsystem {
 
     }
     
+    public void turnToAngle(double angle) {
+    	setAngle = angle;
+    }
+    
     private double getCorrectedAngle(double angle){
     	return angle + 360*Math.floor(0.5-angle/360);
     }
