@@ -63,7 +63,7 @@ public class DriveTrain extends Subsystem {
     	
     	// if rotation input is not within joystick tolerance
     	// then update the target angle
-    	if(r < JOYSTICK_TOLERANCE || r > JOYSTICK_TOLERANCE) {
+    	if(r < JOYSTICK_TOLERANCE || r > -JOYSTICK_TOLERANCE) {
     		setAngle = currentAngle;
     		System.out.println("updating setAngle: " + setAngle);
     	}
