@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Intake extends Subsystem {
 	
-	private final double ROLLER_IN_SPEED = 0.7;
-	private final double ROLLER_OUT_SPEED = 0.7;
-	private final double LIFT_SPEED = 0.7;
-	private final double LOWER_SPEED = 0.7;
+	private final double ROLLER_IN_SPEED = 1;
+	private final double ROLLER_OUT_SPEED = 1;
+	private final double LIFT_SPEED = 1;
+	private final double LOWER_SPEED = 1;
 
     private Talon intakeMotor;
     private Talon intakeLiftMotor;

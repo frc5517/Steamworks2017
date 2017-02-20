@@ -44,7 +44,7 @@ void loop() {
   /*colorChase(CRGB::Red, 25);
   colorChase(CRGB::Green, 25);
   colorChase(CRGB::Blue, 25);*/
-  cylon(CRGB::Green, 40, 1);
+  cylon(CRGB::Blue, 40, 1);
 
   //rainbow(20);
   

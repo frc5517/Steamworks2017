@@ -22,6 +22,7 @@ public class LiftIntake extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
+    	System.out.println("lifting intake");
     	Robot.intake.liftIntake();
     }
 

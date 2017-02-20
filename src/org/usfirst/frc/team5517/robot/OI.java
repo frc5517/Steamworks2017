@@ -37,15 +37,18 @@ public class OI {
 	}
 	
 	private void bindControls() {
-		operatorGamepad.getRightShoulder().whenPressed(new SpinIntakeRollerIn());
-		operatorGamepad.getLeftShoulder().whenPressed(new SpinIntakeRollerOut());
-		operatorTriggerR.whenPressed(new LiftIntake());
-		operatorTriggerL.whenPressed(new LowerIntake());
-		operatorDPadUp.whenPressed(new ClimbUp());
-		operatorDPadDown.whenPressed(new ClimbDown());
+		operatorGamepad.getRightShoulder().whileHeld(new SpinIntakeRollerIn());
+		operatorGamepad.getLeftShoulder().whileHeld(new SpinIntakeRollerOut());
+		operatorTriggerR.whileHeld(new LiftIntake());
+		operatorTriggerL.whileHeld(new LowerIntake());
+		operatorDPadUp.whileHeld(new ClimbUp());
+		operatorDPadDown.whileHeld(new ClimbDown());
 		//operatorGamepad.getButtonX().whenPressed(new CloseDumpDoor());
 		//operatorGamepad.getButtonY().whenPressed(new OpenDumpDoor());
 		//operatorGamepad.getButtonA().whenPressed(new ());
+		
+		operatorGamepad.getButtonB().whileHeld(new LiftIntake());
+		operatorGamepad.getButtonA().whileHeld(new LowerIntake());
 		
 		driverGamepad.getButtonY().whenPressed(new TurnForward());
 		driverGamepad.getButtonB().whenPressed(new TurnRight45());

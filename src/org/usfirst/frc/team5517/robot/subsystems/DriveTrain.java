@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrain extends Subsystem {
 
-	private final double JOYSTICK_TOLERANCE = 0.05;
+	private final double JOYSTICK_TOLERANCE = 0.1;
 	
     private Talon leftMotors;
     private Talon rightMotors;
@@ -63,13 +63,13 @@ public class DriveTrain extends Subsystem {
     	
     	// if rotation input is not within joystick tolerance
     	// then update the target angle
-    	if(r < JOYSTICK_TOLERANCE || r > JOYSTICK_TOLERANCE){
+    	if(r < JOYSTICK_TOLERANCE || r > JOYSTICK_TOLERANCE) {
     		setAngle = currentAngle;
     		System.out.println("updating setAngle: " + setAngle);
     	}
     	else {
-	    	//System.out.println("gyro angle: " + getHeading());
-	    	//System.out.println("setAngle: " + setAngle);
+	    	System.out.println("gyro angle: " + getHeading());
+	    	System.out.println("setAngle: " + setAngle);
 			System.out.print("diff: " + diff);
 			
 			// if diff is big enough, rotate to compensate
