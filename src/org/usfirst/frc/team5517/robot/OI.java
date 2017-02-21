@@ -70,8 +70,8 @@ public class OI {
 		return driverGamepad.getRightY();
 	}
 	
-	public double getOperatorLeftX() {
-		return operatorGamepad.getLeftX();
+	public double getOperatorLeftY() {
+		return operatorGamepad.getLeftY();
 	}
 	
 }

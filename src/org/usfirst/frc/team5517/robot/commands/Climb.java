@@ -22,10 +22,10 @@ public class Climb extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-    	double x = Robot.oi.getOperatorLeftX();
-    	if(x > 0.5)
+    	double y = Robot.oi.getOperatorLeftY();
+    	if(y > 0.5)
     		Robot.climber.up();
-    	else if(x < - 0.5)
+    	else if(y < - 0.5)
     		Robot.climber.down();
     	else
     		Robot.climber.stop();
