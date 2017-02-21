@@ -70,7 +70,6 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		matchStarted = false;
-		driveTrain.setTargetAngle(0);
 		System.out.println("Robot Disabled");
 	}
 
@@ -165,6 +164,9 @@ public class Robot extends IterativeRobot {
 			//if we've just finished calibrating the gyro, reset
 			gyroDriftDetector.reset();
 			curAngle = driveTrain.getHeading();
+			// reset target angle so when we enable it doesn't try to correct
+			// to the target angle before gyro calibrated
+			driveTrain.setTargetAngle(0);
 			System.out.println("Finished auto-reinit gyro");
 		} 
 		else if (gyroDriftDetector.update(Math.abs(curAngle - lastAngle) > (0.75 / 50.0))
