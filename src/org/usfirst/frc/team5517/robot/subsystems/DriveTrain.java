@@ -34,16 +34,17 @@ public class DriveTrain extends PIDSubsystem {
     	// Pass in name and PID constants
     	super("DriveTrain", kP, kI, kD);
     	
-    	// tolerance for the PID target (degrees)
-    	this.setAbsoluteTolerance(3);
-    	this.setInputRange(-180, 180);
-    	this.setOutputRange(-0.5, 0.5);
-    	
     	leftMotors = new Talon(RobotMap.leftDriveMotorPWMPort);
     	rightMotors = new Talon(RobotMap.rightDriveMotorPWMPort);
     	backMotors = new Talon(RobotMap.backDriveMotorPWMPort);
     	gyro = new ADXRS453Gyro();
     	gyro.startThread();
+    	
+    	// tolerance for the PID target (degrees)
+    	this.setAbsoluteTolerance(3);
+    	this.setInputRange(-180, 180);
+    	this.setOutputRange(-0.5, 0.5);
+    	this.setSetpoint(0.0);
     }
 
     @Override
