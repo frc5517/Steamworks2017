@@ -7,14 +7,17 @@ import org.usfirst.frc.team5517.robot.commands.Drive;
 import org.usfirst.frc.team5517.robot.sensors.ADXRS453Gyro;
 
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
  *
  */
-public class DriveTrain extends Subsystem {
-
-	private final double JOYSTICK_TOLERANCE = 0.1;
+public class DriveTrain extends PIDSubsystem {
+	
+	private final static double JOYSTICK_TOLERANCE = 0.1,
+								kP = 0.5, 
+								kI = 0,
+								kD = 0;
 	
     private Talon leftMotors;
     private Talon rightMotors;
@@ -22,10 +25,20 @@ public class DriveTrain extends Subsystem {
     private ADXRS453Gyro gyro;
     private Timer timer;
 
-    private double setAngle = 0;
-    private double P;
+    private double targetAngle = 0;
+    private double compensateValue = 0;
     
     public DriveTrain() {
+    	
+    	// Call PIDSubsystem constructor
+    	// Pass in name and PID constants
+    	super("DriveTrain", kP, kI, kD);
+    	
+    	// tolerance for the PID target (degrees)
+    	this.setAbsoluteTolerance(3);
+    	this.setInputRange(-180, 180);
+    	this.setOutputRange(-0.5, 0.5);
+    	
     	leftMotors = new Talon(RobotMap.leftDriveMotorPWMPort);
     	rightMotors = new Talon(RobotMap.rightDriveMotorPWMPort);
     	backMotors = new Talon(RobotMap.backDriveMotorPWMPort);
@@ -35,8 +48,19 @@ public class DriveTrain extends Subsystem {
 
     @Override
 	public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
     	setDefaultCommand(new Drive());
+    }
+    
+    /**
+     * Adds a "deadzone" to joystick inputs to remove any jitter
+     * @param The joystick value
+     * @return The joystick value with deadzone added
+     */
+    private double joystickDz(double value) {
+    	if (value > -JOYSTICK_TOLERANCE && value < JOYSTICK_TOLERANCE) {
+    		return 0;
+    	}
+    	return value;
     }
     
     /**
@@ -52,25 +76,22 @@ public class DriveTrain extends Subsystem {
     	//final double sin11Pi6 = -0.5; // sine of 11pi/6
     	//final double cos11Pi6 = 1.732050807568877/2; // sqrt(3)/2 cosine of 11pi/6 (30 degrees)
     	double currentAngle = getHeading();
-    	double diff = Math.abs(currentAngle-setAngle);
-    	P = 0;
+    	double diff = Math.abs(currentAngle-targetAngle);
+    	//compensateValue = 0;
+    	
+    	// fix joystick values by adding a "deadzone"
+    	x = joystickDz(x);
+    	y = joystickDz(y);
+    	r = joystickDz(r);
     	
     	// scale down rotation
     	r = r/2;
     	
-    	// check if rotation input is within the joystick tolerance
-    	// if so, don't rotate
-    	if ( (r > 0 && r < JOYSTICK_TOLERANCE) || (r < 0 && r > -JOYSTICK_TOLERANCE) ) {
-    		r = 0;
+    	// if there is rotation input, update the target angle
+    	if(r != 0) {
+    		setTargetAngle(currentAngle);
     	}
-    	
-    	// if rotation input is not within joystick tolerance
-    	// then update the target angle
-    	if(r < -JOYSTICK_TOLERANCE || r > JOYSTICK_TOLERANCE) {
-    		setAngle = currentAngle;
-    		System.out.println("updating setAngle: " + setAngle);
-    	}
-    	else {
+    	/*else {
 	    	System.out.println("gyro angle: " + getHeading());
 	    	System.out.println("setAngle: " + setAngle);
 			System.out.print("diff: " + diff);
@@ -82,51 +103,54 @@ public class DriveTrain extends Subsystem {
 				
 				if(setAngle > currentAngle) {
 					System.out.println("compensate right");
-					P = diff * multiplier;
-					//P += 0.15;
+					compensateValue = diff * multiplier;
+					//compensateValue += 0.15;
 				}
 				else if(setAngle < currentAngle) {
 					System.out.println("compensate left");
-					P = diff * -multiplier;
-					//P -= 0.15;
+					compensateValue = diff * -multiplier;
+					//compensateValue -= 0.15;
 				}
 				
 				// minimum and maximum value
 				// max
-				if(P > 0 && P > 0.3) 
-					P = 0.3;
-				else if(P < 0 && P < -0.3) 
-					P = -0.3;
+				if(compensateValue > 0 && compensateValue > 0.3) 
+					compensateValue = 0.3;
+				else if(compensateValue < 0 && compensateValue < -0.3) 
+					compensateValue = -0.3;
 				
 				// min
-				else if(P < 0 && P > -0.1)
-					P = -0.1;
-				else if(P > 0 && P < 0.1)
-					P = 0.1;
+				else if(compensateValue < 0 && compensateValue > -0.1)
+					compensateValue = -0.1;
+				else if(compensateValue > 0 && compensateValue < 0.1)
+					compensateValue = 0.1;
 				
 			}
-    	}
+    	}*/
     	
     	// calculate wheel speeds from inputs
-    	left = (-0.5 * x - Math.sqrt(3)/2 * y) + r + P;
-    	right = (-0.5 * x + Math.sqrt(3)/2 * y) + r + P;
-    	back = x + r + P;
+    	left = (-0.5 * x - Math.sqrt(3)/2 * y) + r + compensateValue;
+    	right = (-0.5 * x + Math.sqrt(3)/2 * y) + r + compensateValue;
+    	back = x + r + compensateValue;
     	
     	leftMotors.set(left);
     	rightMotors.set(right);
     	backMotors.set(back);
     	
-    	//System.out.println("left: " + left + " right: " + right +" back: " + back + " diff: " + diff);
-    	System.out.println("P " + P);
+    	System.out.println("left: " + left + " right: " + right +" back: " + back);
+    	System.out.println("Diff (NOT being used w/ PID): " + diff);
+    	//System.out.println("compensateValue: " + compensateValue);
 
     }
     
-    public void changeSetAngle(double angle) {
-    	setAngle = angle;
+    public void setTargetAngle(double angle) {
+    	System.out.println("updating setAngle: " + angle);
+    	this.setSetpoint(angle); // update the PID setpoint
+    	targetAngle = angle;
     }
     
     public void turnToAngle(double angle) {
-    	setAngle = angle;
+    	setTargetAngle(angle);
     }
     
     private double getCorrectedAngle(double angle){
@@ -161,6 +185,29 @@ public class DriveTrain extends Subsystem {
     	rightMotors.set(0);
     	backMotors.set(0);
     }
+
+    
+    // PID subsystem methods
+    
+    /**
+     * Set the PID input to the current gyro angle
+     */
+	@Override
+	protected double returnPIDInput() {
+		//System.out.println("Setting PID Input to: " + getHeading());
+		return getHeading();
+	}
+
+	/**
+	 * Set the compensate value to the PID output
+	 * The compensate value is added to all of the wheel's speeds
+	 * (in order to make the robot rotate)
+	 */
+	@Override
+	protected void usePIDOutput(double output) {
+		System.out.println("PID Output: " +output);
+		this.compensateValue = output;
+	}
     
 }
 

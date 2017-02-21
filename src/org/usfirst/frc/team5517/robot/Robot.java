@@ -70,7 +70,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void disabledInit() {
 		matchStarted = false;
-		driveTrain.changeSetAngle(0);
+		driveTrain.setTargetAngle(0);
 		System.out.println("Robot Disabled");
 	}
 
