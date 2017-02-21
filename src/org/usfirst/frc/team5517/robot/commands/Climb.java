@@ -27,6 +27,8 @@ public class Climb extends Command {
     		Robot.climber.up();
     	else if(x < - 0.5)
     		Robot.climber.down();
+    	else
+    		Robot.climber.stop();
     }
 
     // Make this return true when this Command no longer needs to run execute()
