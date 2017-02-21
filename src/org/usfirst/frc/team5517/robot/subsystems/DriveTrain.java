@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5517.robot.subsystems;
 
+import java.util.Timer;
+
 import org.usfirst.frc.team5517.robot.RobotMap;
 import org.usfirst.frc.team5517.robot.commands.Drive;
 import org.usfirst.frc.team5517.robot.sensors.ADXRS453Gyro;
@@ -18,6 +20,7 @@ public class DriveTrain extends Subsystem {
     private Talon rightMotors;
     private Talon backMotors;
     private ADXRS453Gyro gyro;
+    private Timer timer;
 
     private double setAngle = 0;
     private double P;
@@ -63,7 +66,7 @@ public class DriveTrain extends Subsystem {
     	
     	// if rotation input is not within joystick tolerance
     	// then update the target angle
-    	if(r < JOYSTICK_TOLERANCE || r > -JOYSTICK_TOLERANCE) {
+    	if(r < -JOYSTICK_TOLERANCE || r > JOYSTICK_TOLERANCE) {
     		setAngle = currentAngle;
     		System.out.println("updating setAngle: " + setAngle);
     	}
@@ -75,22 +78,33 @@ public class DriveTrain extends Subsystem {
 			// if diff is big enough, rotate to compensate
 			if(diff > 3) {
 				
-				if(setAngle >= currentAngle) {
+				double multiplier = 0.015;
+				
+				if(setAngle > currentAngle) {
 					System.out.println("compensate right");
-					P += 0.15;
+					P = diff * multiplier;
+					//P += 0.15;
 				}
-				else if(setAngle <= currentAngle) {
+				else if(setAngle < currentAngle) {
 					System.out.println("compensate left");
-					P -= 0.15;
+					P = diff * -multiplier;
+					//P -= 0.15;
 				}
 				
+				// minimum and maximum value
+				// max
+				if(P > 0 && P > 0.3) 
+					P = 0.3;
+				else if(P < 0 && P < -0.3) 
+					P = -0.3;
+				
+				// min
+				else if(P < 0 && P > -0.1)
+					P = -0.1;
+				else if(P > 0 && P < 0.1)
+					P = 0.1;
+				
 			}
-			else {
-				P = 0;
-			}
-			/*if(P < 0.11) {
-				P = 0.11;
-			}*/
     	}
     	
     	// calculate wheel speeds from inputs
@@ -105,6 +119,10 @@ public class DriveTrain extends Subsystem {
     	//System.out.println("left: " + left + " right: " + right +" back: " + back + " diff: " + diff);
     	System.out.println("P " + P);
 
+    }
+    
+    public void changeSetAngle(double angle) {
+    	setAngle = angle;
     }
     
     public void turnToAngle(double angle) {

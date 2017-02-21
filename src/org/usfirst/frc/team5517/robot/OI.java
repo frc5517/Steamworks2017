@@ -2,8 +2,10 @@ package org.usfirst.frc.team5517.robot;
 
 import org.usfirst.frc.team5517.robot.commands.ClimbDown;
 import org.usfirst.frc.team5517.robot.commands.ClimbUp;
+import org.usfirst.frc.team5517.robot.commands.CloseDumpDoor;
 import org.usfirst.frc.team5517.robot.commands.LiftIntake;
 import org.usfirst.frc.team5517.robot.commands.LowerIntake;
+import org.usfirst.frc.team5517.robot.commands.OpenDumpDoor;
 import org.usfirst.frc.team5517.robot.commands.SpinIntakeRollerIn;
 import org.usfirst.frc.team5517.robot.commands.SpinIntakeRollerOut;
 import org.usfirst.frc.team5517.robot.commands.TurnBackward;
@@ -39,21 +41,17 @@ public class OI {
 	private void bindControls() {
 		operatorGamepad.getRightShoulder().whileHeld(new SpinIntakeRollerIn());
 		operatorGamepad.getLeftShoulder().whileHeld(new SpinIntakeRollerOut());
-		operatorTriggerR.whileHeld(new LiftIntake());
-		operatorTriggerL.whileHeld(new LowerIntake());
-		operatorDPadUp.whileHeld(new ClimbUp());
-		operatorDPadDown.whileHeld(new ClimbDown());
-		//operatorGamepad.getButtonX().whenPressed(new CloseDumpDoor());
-		//operatorGamepad.getButtonY().whenPressed(new OpenDumpDoor());
-		//operatorGamepad.getButtonA().whenPressed(new ());
+		operatorTriggerR.whileHeld(new LiftIntake()); // TODO test
+		operatorTriggerL.whileHeld(new LowerIntake()); // TODO test
+		operatorDPadUp.whileHeld(new ClimbUp()); // TODO figure if this works
+		operatorDPadDown.whileHeld(new ClimbDown()); // TODO figure if this works
+		operatorGamepad.getButtonX().whileHeld(new CloseDumpDoor());
+		operatorGamepad.getButtonY().whileHeld(new OpenDumpDoor());
 		
-		operatorGamepad.getButtonB().whileHeld(new LiftIntake());
-		operatorGamepad.getButtonA().whileHeld(new LowerIntake());
-		
-		driverGamepad.getButtonY().whenPressed(new TurnForward());
-		driverGamepad.getButtonB().whenPressed(new TurnRight45());
-		driverGamepad.getButtonA().whenPressed(new TurnBackward());
-		driverGamepad.getButtonX().whenPressed(new TurnLeft135());		
+		driverGamepad.getButtonY().whileHeld(new TurnForward());
+		driverGamepad.getButtonB().whileHeld(new TurnRight45());
+		driverGamepad.getButtonA().whileHeld(new TurnBackward());
+		driverGamepad.getButtonX().whileHeld(new TurnLeft135());		
 	}
 	
 	public double getDriverLeftX() {
