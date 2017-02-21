@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5517.robot;
 
-import org.usfirst.frc.team5517.robot.commands.ClimbDown;
-import org.usfirst.frc.team5517.robot.commands.ClimbUp;
+import org.usfirst.frc.team5517.robot.commands.Climb;
 import org.usfirst.frc.team5517.robot.commands.CloseDumpDoor;
 import org.usfirst.frc.team5517.robot.commands.LiftIntake;
 import org.usfirst.frc.team5517.robot.commands.LowerIntake;
@@ -24,8 +23,8 @@ public class OI {
 	
 	private Gamepad driverGamepad;
 	private Gamepad operatorGamepad;
-	public JoystickAnalogButton operatorTriggerR, operatorTriggerL;
-	public DPadButton operatorDPadUp, operatorDPadDown;
+	private JoystickAnalogButton operatorTriggerR, operatorTriggerL;
+	private DPadButton operatorDPadUp, operatorDPadDown;
 			  
 	
 	public OI() {
@@ -41,17 +40,18 @@ public class OI {
 	private void bindControls() {
 		operatorGamepad.getRightShoulder().whileHeld(new SpinIntakeRollerIn());
 		operatorGamepad.getLeftShoulder().whileHeld(new SpinIntakeRollerOut());
-		operatorTriggerR.whileHeld(new LiftIntake()); // TODO test
-		operatorTriggerL.whileHeld(new LowerIntake()); // TODO test
-		operatorDPadUp.whileHeld(new ClimbUp()); // TODO figure if this works
-		operatorDPadDown.whileHeld(new ClimbDown()); // TODO figure if this works
+		operatorTriggerR.whileHeld(new LiftIntake());
+		operatorTriggerL.whileHeld(new LowerIntake());
+		//operatorDPadUp.whileHeld(new ClimbUp()); // TODO figure if this works
+		//operatorDPadDown.whileHeld(new ClimbDown()); // TODO figure if this works
 		operatorGamepad.getButtonX().whileHeld(new CloseDumpDoor());
 		operatorGamepad.getButtonY().whileHeld(new OpenDumpDoor());
+		operatorGamepad.getButtonA().whileHeld(new Climb());
 		
 		driverGamepad.getButtonY().whileHeld(new TurnForward());
 		driverGamepad.getButtonB().whileHeld(new TurnRight45());
 		driverGamepad.getButtonA().whileHeld(new TurnBackward());
-		driverGamepad.getButtonX().whileHeld(new TurnLeft135());		
+		driverGamepad.getButtonX().whileHeld(new TurnLeft135());
 	}
 	
 	public double getDriverLeftX() {
@@ -68,6 +68,10 @@ public class OI {
 	
 	public double getDriverRightY() {
 		return driverGamepad.getRightY();
+	}
+	
+	public double getOperatorLeftX() {
+		return operatorGamepad.getLeftX();
 	}
 	
 }
