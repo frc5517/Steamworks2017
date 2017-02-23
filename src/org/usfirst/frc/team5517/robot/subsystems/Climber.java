@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Climber extends Subsystem {
 
-	private final double CLIMB_SPEED = 0.5; 
+	private final double CLIMB_SPEED = 1;
 	
 	private Spark climbMotor;
 	
