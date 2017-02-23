@@ -23,9 +23,9 @@ public class Climb extends Command {
     @Override
 	protected void execute() {
     	double y = Robot.oi.getOperatorLeftY();
-    	if(y > 0.5)
+    	if(y < 0.5)
     		Robot.climber.up();
-    	else if(y < - 0.5)
+    	else if(y > - 0.5)
     		Robot.climber.down();
     	else
     		Robot.climber.stop();
