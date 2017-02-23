@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -54,6 +55,10 @@ public class Robot extends IterativeRobot {
 		// Gyro stuff
 		gyroDriftDetector = new Debouncer(1.0);
 		driveTrain.calibrateGyro();
+		
+		SmartDashboard.putNumber("P", 0.0);
+		SmartDashboard.putNumber("I", 0.0);
+		SmartDashboard.putNumber("D", 0.0);
 		
 		//chooser.addDefault("Default Auto", new ExampleCommand());
 		//chooser.addObject("My Auto", new MyAutoCommand());
