@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
- *
+ * DriveTrain PID subsystem
+ * Tried to use a PIDSubsystem here but could not get it working properly
  */
 public class DriveTrain_PID extends PIDSubsystem {
 	

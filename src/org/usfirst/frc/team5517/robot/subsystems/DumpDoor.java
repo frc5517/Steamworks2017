@@ -5,6 +5,12 @@ import org.usfirst.frc.team5517.robot.RobotMap;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
+/**
+ * Dump Door subsystem
+ * This door opens to let fuel fall into the low boiler goal
+ * @author nathan
+ *
+ */
 public class DumpDoor extends Subsystem {
 
 	private static final double OPEN_SPEED = 0.2;

@@ -5,7 +5,10 @@ import org.usfirst.frc.team5517.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Climber command:
+ * This command is called when the operator holds A
+ * It then checks the left joystick to determine whether to climb up or down
+ * (Safety Feature)
  */
 public class Climb extends Command {
 
@@ -25,7 +28,7 @@ public class Climb extends Command {
     	double y = Robot.oi.getOperatorLeftY();
     	if(y < 0.5)
     		Robot.climber.up();
-    	else if(y > - 0.5)
+    	else if(y > -0.5)
     		Robot.climber.down();
     	else
     		Robot.climber.stop();

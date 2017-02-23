@@ -6,7 +6,9 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Intake subsystem
+ * Sucks fuel into our robot
+ * Has methods for spinning intake bar and raising/lowering the entire mechanism
  */
 public class Intake extends Subsystem {
 	

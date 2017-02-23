@@ -9,8 +9,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * The DriveTrain subsystem
- * This is the robot's main subsystem; without it, the robot isn't going anywhere!
- * 
  * Contains a main drive method as well as the gyro and methods to access/change the gyro
  */
 public class DriveTrain extends Subsystem {

@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ * Climber subsystem
+ * Methods to turn the climber wench to climb either up or down
  */
 public class Climber extends Subsystem {
 
@@ -19,10 +20,7 @@ public class Climber extends Subsystem {
 	}
 	
     @Override
-	public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+	public void initDefaultCommand() {}
     
     public void up() {
     	climbMotor.set(CLIMB_SPEED);
@@ -34,7 +32,6 @@ public class Climber extends Subsystem {
 
 	public void stop() {
 		climbMotor.set(0);
-		
 	}
     
 }
