@@ -14,11 +14,9 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 
 /**
- * The VM is configured to automatically run this class, and to call the
- * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * Main Robot class
+ * The VM on the RoboRIO calls the methods in this class during a match
+ *
  */
 public class Robot extends IterativeRobot {
 
@@ -48,6 +46,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		
+		System.out.println("Robot Initializing...");
+		
 		// Create controls
 		oi = new OI();
 		
@@ -61,6 +61,9 @@ public class Robot extends IterativeRobot {
 		
 		System.out.println("Robot Initialized");
 	}
+	
+	@Override
+	public void robotPeriodic() {}
 
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
@@ -124,10 +127,6 @@ public class Robot extends IterativeRobot {
 	public void teleopInit() {
 		matchStarted = true;
 		
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 		
@@ -140,7 +139,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		//System.out.println("Drivetrain Heading: " + driveTrain.getHeading());
 		Scheduler.getInstance().run();
 	}
 
@@ -152,26 +150,27 @@ public class Robot extends IterativeRobot {
 		LiveWindow.run();
 	}
 	
+	/**
+	 * If the gyro is drifting, re-initialize/calibrate it
+	 * (Thanks to FRC 2168 for this)
+	 */
 	public void reinitGyro() {
-		
-		// If the gyro is drifting, re-initialize/calibrate it
-		// Thanks FRC 2168!
 		
 		curAngle = driveTrain.getHeading();
 		gyroCalibrating = driveTrain.isGyroCalibrating();
 
 		if (lastGyroCalibrating && !gyroCalibrating) {
-			//if we've just finished calibrating the gyro, reset
+			// if we've just finished calibrating the gyro, reset
 			gyroDriftDetector.reset();
 			curAngle = driveTrain.getHeading();
 			// reset target angle so when we enable it doesn't try to correct
 			// to the target angle before gyro calibrated
 			driveTrain.setTargetAngle(0);
 			System.out.println("Finished auto-reinit gyro");
-		} 
+		}
 		else if (gyroDriftDetector.update(Math.abs(curAngle - lastAngle) > (0.75 / 50.0))
 				&& !matchStarted && !gyroCalibrating) {
-			//&& gyroReinits < 3) {
+			// start calibrating gyro
 			gyroReinits++;
 			System.out.println("!!! Sensed drift, about to auto-reinit gyro (#"+ gyroReinits + ")");
 			driveTrain.calibrateGyro();

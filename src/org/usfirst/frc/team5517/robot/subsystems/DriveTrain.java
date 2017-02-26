@@ -64,10 +64,10 @@ public class DriveTrain extends Subsystem {
      * @param r The rotation value, which is x from the right joystick
      */
     public void drive(double x, double y, double r) {
-    	currentAngle = this.getRawHeading();
+    	currentAngle = this.getHeading();
     	double leftWheel, rightWheel, backWheel;
     	//double diff = Math.abs(currentAngle-targetAngle); // aka error
-    	double diff = Math.IEEEremainder(targetAngle-currentAngle, 360.0);
+    	double diff = Math.IEEEremainder(targetAngle-currentAngle, 360.0); // thanks Ether from CD
     	
     	compensation = 0;
     	
@@ -138,16 +138,16 @@ public class DriveTrain extends Subsystem {
     	setTargetAngle(angle);
     }
     
-    private double getCorrectedAngle(double angle){
+    private double correctAngle(double angle){
     	return angle + 360*Math.floor(0.5-angle/360);
     }
     
-    public double getRawHeading() {
+    public double getHeading() {
     	return gyro.getAngle();
     }
     
-    public double getHeading() {
-    	return getCorrectedAngle(gyro.getAngle());
+    public double getCorrectedHeading() {
+    	return correctAngle(gyro.getAngle());
     }
     
     public boolean isGyroCalibrating() {
