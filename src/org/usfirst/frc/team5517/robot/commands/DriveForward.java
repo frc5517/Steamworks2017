@@ -4,18 +4,18 @@ import org.usfirst.frc.team5517.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.TimedCommand;
 
+//import org.usfirst.frc.team5517.robot.Robot.autonomousCommand;
 /**
  *
  */
-public class ClimbDown extends TimedCommand {
+public class DriveForward extends TimedCommand {
 
-    public ClimbDown(double timeout) {
-        // Use requires() here to declare subsystem dependencies
+    public DriveForward(double timeout) {
         super(timeout);
-    	requires(Robot.climber);
+        requires(Robot.driveTrain);
     }
 
-    // Called just before this Command runs the first time
+	// Called just before this Command runs the first time
     @Override
 	protected void initialize() {
     }
@@ -23,25 +23,17 @@ public class ClimbDown extends TimedCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-    	Robot.climber.down();
+    	Robot.driveTrain.drive(0, .25, 0);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
-    @Override
-	protected boolean isFinished() {
-        return false;
-    }
-
-    // Called once after isFinished returns true
+	// Called once after timeout
     @Override
 	protected void end() {
-    	Robot.climber.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
 	protected void interrupted() {
-    	end();
     }
 }

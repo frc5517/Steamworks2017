@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team5517.robot;
 
+import org.usfirst.frc.team5517.robot.commands.AutoDriveForward;
 import org.usfirst.frc.team5517.robot.subsystems.Climber;
 import org.usfirst.frc.team5517.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5517.robot.subsystems.DumpDoor;
@@ -12,6 +13,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Main Robot class
@@ -101,12 +103,13 @@ public class Robot extends IterativeRobot {
 
 		autonomousCommand = chooser.getSelected();
 		
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
+		
+		  String autoSelected = SmartDashboard.getString("Auto Selector", "Drive Forward"); 
+		  switch(autoSelected) { 
+		  	case "Drive Forward": autonomousCommand = new AutoDriveForward(); break; 
+		  	case "No Auto": default: break;
+		  }
+		 
 
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null)
