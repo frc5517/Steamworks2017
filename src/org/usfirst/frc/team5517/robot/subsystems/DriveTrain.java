@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class DriveTrain extends Subsystem {
 
 	private final double JOYSTICK_TOLERANCE = 0.1;
+	private final double ERROR_TOLERANCE = 3;
 	
     private Talon leftMotors;
     private Talon rightMotors;
@@ -30,6 +31,11 @@ public class DriveTrain extends Subsystem {
      * (we want the gyro angle close to this)
      */
     private double targetAngle = 0;
+    
+    /**
+     * The difference, or error, of the target angle and current angle 
+     */
+    private double diff = 0;
     
     /**
      * Value added to the motor speeds to compensate angle error
@@ -64,11 +70,10 @@ public class DriveTrain extends Subsystem {
      * @param r The rotation value, which is x from the right joystick
      */
     public void drive(double x, double y, double r) {
-    	currentAngle = this.getHeading();
     	double leftWheel, rightWheel, backWheel;
-    	//double diff = Math.abs(currentAngle-targetAngle); // aka error
-    	double diff = Math.IEEEremainder(targetAngle-currentAngle, 360.0); // thanks Ether from CD
-    	
+    	currentAngle = this.getHeading();
+    	//diff = Math.abs(currentAngle-targetAngle); // aka error
+    	diff = Math.IEEEremainder(targetAngle-currentAngle, 360.0);
     	compensation = 0;
     	
     	// remove joystick jitter by adding a "deadzone"
@@ -86,13 +91,13 @@ public class DriveTrain extends Subsystem {
     	}
     	// if it has been some time since angle was updated by driver, 
     	// then we can compensate 
-    	else if(1000 > nanoToMilli(System.nanoTime()-lastUpdatedTargetAngleTime)) {
+    	else if(1000 < nanoToMilli(System.nanoTime()-lastUpdatedTargetAngleTime)) {
 	    	System.out.print("gyro angle: " + currentAngle);
 	    	System.out.print(", target angle: " + targetAngle);
 			System.out.println(", diff: " + diff);
 			
 			// if diff is big enough, compensate
-			if(Math.abs(diff) > 3) {
+			if(Math.abs(diff) > ERROR_TOLERANCE) {
 				
 				final double multiplier = 0.015;
 				
@@ -110,7 +115,7 @@ public class DriveTrain extends Subsystem {
 				// min and max for compensation
 				compensation = minAndMax(compensation, 0.1, 0.3);
 				
-				System.out.println("compensating " + compensation);
+				System.out.println("--- compensating " + compensation);
 				
 			}
     	}
@@ -138,8 +143,8 @@ public class DriveTrain extends Subsystem {
     	setTargetAngle(angle);
     }
     
-    private double correctAngle(double angle){
-    	return angle + 360*Math.floor(0.5-angle/360);
+    public boolean isAngleOnTarget() {
+    	return Math.abs(diff) <= ERROR_TOLERANCE;
     }
     
     public double getHeading() {
@@ -148,6 +153,10 @@ public class DriveTrain extends Subsystem {
     
     public double getCorrectedHeading() {
     	return correctAngle(gyro.getAngle());
+    }
+    
+    private double correctAngle(double angle){
+    	return angle + 360*Math.floor(0.5-angle/360);
     }
     
     public boolean isGyroCalibrating() {
