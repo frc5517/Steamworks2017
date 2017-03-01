@@ -23,11 +23,11 @@ public class Climber extends Subsystem {
 	public void initDefaultCommand() {}
     
     public void up() {
-    	climbMotor.set(CLIMB_SPEED);
+    	climbMotor.set(-CLIMB_SPEED);
     }
     
     public void down() {
-    	climbMotor.set(-CLIMB_SPEED);
+    	climbMotor.set(CLIMB_SPEED);
     }
 
 	public void stop() {
