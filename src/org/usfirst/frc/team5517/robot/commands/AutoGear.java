@@ -25,6 +25,9 @@ public class AutoGear extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	//addSequential
+    	addSequential(new ClimbDown(1));
+    	addSequential(new Strafe(5, .25));
+    	addSequential(new TurnToAngle(45));
+    	addSequential(new DriveForward(5));
     }
 }
