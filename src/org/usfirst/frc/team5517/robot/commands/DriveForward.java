@@ -10,9 +10,12 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
  */
 public class DriveForward extends TimedCommand {
 
-    public DriveForward(double timeout) {
+	private double speed;
+	
+    public DriveForward(double timeout, double speed) {
         super(timeout);
         requires(Robot.driveTrain);
+        this.speed = speed;
     }
 
 	// Called just before this Command runs the first time
@@ -23,7 +26,8 @@ public class DriveForward extends TimedCommand {
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-    	Robot.driveTrain.drive(0, .25, 0);
+    	Robot.driveTrain.drive(0, speed, 0);
+    	System.out.println("speed: "+speed);
     }
 
 	// Called once after timeout

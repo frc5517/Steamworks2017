@@ -6,7 +6,6 @@ import org.usfirst.frc.team5517.robot.sensors.ADXRS453Gyro;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
 /**
  * The DriveTrain subsystem
  * Contains a main drive method as well as the gyro and methods to access/change the gyro
@@ -79,10 +78,14 @@ public class DriveTrain extends Subsystem {
     	// remove joystick jitter by adding a "deadzone"
     	x = joystickDz(x);
     	y = joystickDz(y);
+  
+    	y = y*y*y;
+    	x = x*x*x;
     	r = joystickDz(r);
     	
     	// scale down rotation
     	r = r/2;
+    	
     	
     	// if there is rotation input, update the target angle
     	if(r != 0) {
@@ -91,7 +94,7 @@ public class DriveTrain extends Subsystem {
     	}
     	// if it has been some time since angle was updated by driver, 
     	// then we can compensate 
-    	else if(1000 < nanoToMilli(System.nanoTime()-lastUpdatedTargetAngleTime)) {
+    	else if(500 < nanoToMilli(System.nanoTime()-lastUpdatedTargetAngleTime)) {
 	    	System.out.print("gyro angle: " + currentAngle);
 	    	System.out.print(", target angle: " + targetAngle);
 			System.out.println(", diff: " + diff);
@@ -114,10 +117,15 @@ public class DriveTrain extends Subsystem {
 				
 				// min and max for compensation
 				compensation = minAndMax(compensation, 0.1, 0.3);
+				// min max comp (.1, .3)
 				
 				System.out.println("--- compensating " + compensation);
 				
 			}
+    	}
+    	
+    	if(490 > nanoToMilli(System.nanoTime()-lastUpdatedTargetAngleTime)) {
+    		setTargetAngle(currentAngle);
     	}
     	
     	// calculate wheel speeds from inputs
@@ -130,11 +138,16 @@ public class DriveTrain extends Subsystem {
     	backMotors.set(backWheel);
     	
     	//System.out.println("MOTORS: left: " + left + " right: " + right +" back: " + back);
-    	System.out.println("compensation: " + compensation);
+    	//System.out.println("compensation: " + compensation);
 
     }
     
-    public void setTargetAngle(double angle) {
+    private Object joyY(double d) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setTargetAngle(double angle) {
     	System.out.println("updating targetAngle: " + targetAngle);
     	targetAngle = angle;
     }

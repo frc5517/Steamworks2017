@@ -1,17 +1,16 @@
 package org.usfirst.frc.team5517.robot.commands;
 
-import org.usfirst.frc.team5517.robot.Robot;
-
-import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
  *
  */
-public class ClimbUp extends Command {
+public class WaitCommand extends TimedCommand {
 
-    public ClimbUp() {
+    public WaitCommand(double timeout) {
         // Use requires() here to declare subsystem dependencies
-        requires(Robot.climber);
+        // eg. requires(chassis);
+    	super(timeout);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +21,6 @@ public class ClimbUp extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
 	protected void execute() {
-    	Robot.climber.up(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -34,13 +32,5 @@ public class ClimbUp extends Command {
     // Called once after isFinished returns true
     @Override
 	protected void end() {
-    	Robot.climber.stop();
-    }
-
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    @Override
-	protected void interrupted() {
-    	end();
     }
 }

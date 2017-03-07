@@ -1,13 +1,18 @@
 
 package org.usfirst.frc.team5517.robot;
 
+import org.usfirst.frc.team5517.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team5517.robot.commands.AutoDriveForward;
+import org.usfirst.frc.team5517.robot.commands.AutoGearLeft;
+import org.usfirst.frc.team5517.robot.commands.AutoGearMiddle;
+import org.usfirst.frc.team5517.robot.commands.AutoGearRight;
 import org.usfirst.frc.team5517.robot.subsystems.Climber;
 import org.usfirst.frc.team5517.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team5517.robot.subsystems.DumpDoor;
 import org.usfirst.frc.team5517.robot.subsystems.Intake;
 import org.usfirst.frc.team5517.robot.utils.Debouncer;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -49,6 +54,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		
 		System.out.println("Robot Initializing...");
+
+		CameraServer server = CameraServer.getInstance();
+		server.startAutomaticCapture();
 		
 		// Create controls
 		oi = new OI();
@@ -57,9 +65,12 @@ public class Robot extends IterativeRobot {
 		gyroDriftDetector = new Debouncer(1.0);
 		driveTrain.calibrateGyro();
 		
-		//chooser.addDefault("Default Auto", new ExampleCommand());
-		//chooser.addObject("My Auto", new MyAutoCommand());
-		//SmartDashboard.putData("Auto mode", chooser);
+		chooser.addDefault("No Auto", new AutoDoNothing());
+		chooser.addObject("Drive Forward", new AutoDriveForward());
+		chooser.addObject("Gear Left", new AutoGearLeft());
+		chooser.addObject("Gear Middle", new AutoGearMiddle());
+		chooser.addObject("Gear Right", new AutoGearRight());
+		SmartDashboard.putData("Auto mode", chooser);
 		
 		System.out.println("Robot Initialized");
 	}
@@ -104,10 +115,13 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = chooser.getSelected();
 		
 		
-		  String autoSelected = SmartDashboard.getString("Auto Selector", "Drive Forward"); 
+		  String autoSelected = SmartDashboard.getString("Auto Selector", "No Auto"); 
 		  switch(autoSelected) { 
+		  	case "No Auto": break;
 		  	case "Drive Forward": autonomousCommand = new AutoDriveForward(); break; 
-		  	case "No Auto": default: break;
+		  	case "Gear Left": autonomousCommand = new AutoDriveForward(); break; 
+		  	case "Gear Middle": autonomousCommand = new AutoDriveForward(); break; 
+		  	case "Gear Right": autonomousCommand = new AutoDriveForward(); break;
 		  }
 		 
 

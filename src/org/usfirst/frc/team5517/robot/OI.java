@@ -44,8 +44,8 @@ public class OI {
 		operatorTriggerL.whileHeld(new LowerIntake());
 		//operatorDPadUp.whileHeld(new ClimbUp()); // TODO figure if this works
 		//operatorDPadDown.whileHeld(new ClimbDown()); // TODO figure if this works
-		operatorGamepad.getButtonX().whileHeld(new CloseDumpDoor());
-		operatorGamepad.getButtonY().whileHeld(new OpenDumpDoor());
+		operatorGamepad.getButtonX().whileHeld(new OpenDumpDoor());
+		operatorGamepad.getButtonY().whileHeld(new CloseDumpDoor());
 		operatorGamepad.getButtonA().whileHeld(new Climb());
 		
 		driverGamepad.getButtonY().whileHeld(new TurnForward());

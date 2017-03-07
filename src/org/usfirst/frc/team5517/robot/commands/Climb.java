@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
  * (Safety Feature)
  */
 public class Climb extends Command {
-
+	
     public Climb() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.climber);
@@ -26,10 +26,11 @@ public class Climb extends Command {
     @Override
 	protected void execute() {
     	double y = Robot.oi.getOperatorLeftY();
-    	if(y < 0.5)
-    		Robot.climber.up();
-    	else if(y > -0.5)
-    		Robot.climber.down();
+    	System.out.println("operator Y: " + y);
+    	if(y > 0.2)
+    		Robot.climber.up(y);
+    	else if(y < -0.2)
+    		Robot.climber.down(y);
     	else
     		Robot.climber.stop();
     }

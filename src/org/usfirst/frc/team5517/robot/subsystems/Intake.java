@@ -40,11 +40,11 @@ public class Intake extends Subsystem {
     }
     
     public void liftIntake() {
-    	intakeLiftMotor.set(LIFT_SPEED);
+    	intakeLiftMotor.set(-LIFT_SPEED);
     }
     
     public void lowerIntake() {
-    	intakeLiftMotor.set(-LOWER_SPEED);
+    	intakeLiftMotor.set(LOWER_SPEED);
     }
     
     public void stopIntakeLift() {

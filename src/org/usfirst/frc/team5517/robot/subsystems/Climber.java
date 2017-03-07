@@ -22,12 +22,12 @@ public class Climber extends Subsystem {
     @Override
 	public void initDefaultCommand() {}
     
-    public void up() {
-    	climbMotor.set(-CLIMB_SPEED);
+    public void up(double speed) {
+    	climbMotor.set(-speed);
     }
     
-    public void down() {
-    	climbMotor.set(CLIMB_SPEED);
+    public void down(double speed) {
+    	climbMotor.set(-speed);
     }
 
 	public void stop() {
