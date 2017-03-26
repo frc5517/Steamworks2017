@@ -12,6 +12,7 @@ public class LowerIntake extends Command {
     public LowerIntake() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.intake);
+        requires(Robot.arm);
     }
 
     // Called just before this Command runs the first time
@@ -23,6 +24,7 @@ public class LowerIntake extends Command {
     @Override
 	protected void execute() {
     	Robot.intake.lowerIntake();
+    	Robot.arm.lower();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -35,6 +37,7 @@ public class LowerIntake extends Command {
     @Override
 	protected void end() {
     	Robot.intake.stopIntakeLift();
+    	Robot.arm.stop();
     }
 
     // Called when another command which requires one or more of the same
