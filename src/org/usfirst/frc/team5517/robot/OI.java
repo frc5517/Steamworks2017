@@ -1,10 +1,10 @@
 package org.usfirst.frc.team5517.robot;
 
 import org.usfirst.frc.team5517.robot.commands.Climb;
-import org.usfirst.frc.team5517.robot.commands.CloseDumpDoor;
 import org.usfirst.frc.team5517.robot.commands.LiftIntake;
+import org.usfirst.frc.team5517.robot.commands.LowerArm;
 import org.usfirst.frc.team5517.robot.commands.LowerIntake;
-import org.usfirst.frc.team5517.robot.commands.OpenDumpDoor;
+import org.usfirst.frc.team5517.robot.commands.RaiseArm;
 import org.usfirst.frc.team5517.robot.commands.SpinIntakeRollerIn;
 import org.usfirst.frc.team5517.robot.commands.SpinIntakeRollerOut;
 import org.usfirst.frc.team5517.robot.commands.TurnBackward;
@@ -42,8 +42,8 @@ public class OI {
 		operatorGamepad.getLeftShoulder().whileHeld(new SpinIntakeRollerOut());
 		operatorTriggerR.whileHeld(new LiftIntake());
 		operatorTriggerL.whileHeld(new LowerIntake());
-		operatorGamepad.getButtonX().whileHeld(new OpenDumpDoor());
-		operatorGamepad.getButtonY().whileHeld(new CloseDumpDoor());
+		operatorGamepad.getButtonX().whileHeld(new RaiseArm());
+		operatorGamepad.getButtonY().whileHeld(new LowerArm());
 		operatorGamepad.getButtonA().whileHeld(new Climb());
 		
 		driverGamepad.getButtonY().whileHeld(new TurnForward());

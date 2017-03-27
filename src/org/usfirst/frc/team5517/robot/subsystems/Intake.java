@@ -21,7 +21,7 @@ public class Intake extends Subsystem {
     private Talon intakeLiftMotor;
     
     public Intake() {
-    	intakeMotor = new Talon(RobotMap.intakeMotorPWMPort);
+    	intakeLiftMotor = new Talon(RobotMap.dumpMotorPWMPort);
     	intakeLiftMotor = new Talon(RobotMap.intakeLiftMotorPWMPort);
     }
 

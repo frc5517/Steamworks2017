@@ -24,7 +24,7 @@ public class LowerIntake extends Command {
     @Override
 	protected void execute() {
     	Robot.intake.lowerIntake();
-    	Robot.arm.lower();
+    	Robot.arm.raise();
     }
 
     // Make this return true when this Command no longer needs to run execute()

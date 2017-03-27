@@ -12,6 +12,7 @@ public class LiftIntake extends Command {
     public LiftIntake() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.intake);
+        requires(Robot.arm);
     }
 
     // Called just before this Command runs the first time
@@ -24,6 +25,7 @@ public class LiftIntake extends Command {
 	protected void execute() {
     	System.out.println("lifting intake");
     	Robot.intake.liftIntake();
+    	Robot.arm.lower();
     }
 
     // Make this return true when this Command no longer needs to run execute()
