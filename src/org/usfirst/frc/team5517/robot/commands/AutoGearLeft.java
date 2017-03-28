@@ -25,10 +25,12 @@ public class AutoGearLeft extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new ClimbDown(1));
-    	//addSequential(new Strafe(5, .25));
-    	addSequential(new DriveForward(3, 0.25));
-    	addSequential(new TurnToAngle(45));
-    	addSequential(new DriveForward(3, 0.25));
+    	addSequential(new LowerIntake());
+    	//TO-DO make RaiseIntakeToPeg command
+    	addSequential(new DriveForward(3, 0.5));
+    	addSequential(new TurnToAngle(-45));
+    	addSequential(new DriveForward(3, 0.5));
+    	addSequential(new SpinIntakeRollerOut());
+    	addSequential(new DriveForward(2, -0.5));
     }
 }
