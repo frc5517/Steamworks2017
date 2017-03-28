@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5517.robot.commands;
+/*package org.usfirst.frc.team5517.robot.commands;
 
 import org.usfirst.frc.team5517.robot.Robot;
 
@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
- */
+ *
 public class OpenDumpDoor extends Command {
 
     public OpenDumpDoor() {
@@ -44,3 +44,4 @@ public class OpenDumpDoor extends Command {
     	end();
     }
 }
+*/

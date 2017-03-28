@@ -1,4 +1,4 @@
-package org.usfirst.frc.team5517.robot.subsystems;
+/*package org.usfirst.frc.team5517.robot.subsystems;
 
 import org.usfirst.frc.team5517.robot.RobotMap;
 
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * This door opens to let fuel fall into the low boiler goal
  * @author nathan
  *
- */
+ *
 public class DumpDoor extends Subsystem {
 
 	private static final double OPEN_SPEED = 0.2;
@@ -41,3 +41,4 @@ public class DumpDoor extends Subsystem {
 
 	
 }
+*/

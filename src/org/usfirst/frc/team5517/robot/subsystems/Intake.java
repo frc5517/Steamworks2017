@@ -12,17 +12,19 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Intake extends Subsystem {
 	
-	private final double ROLLER_IN_SPEED = 1;
+	private final double ROLLER_IN_SPEED = 0.5;
 	private final double ROLLER_OUT_SPEED = 1;
-	private final double LIFT_SPEED = 1;
-	private final double LOWER_SPEED = 1;
+	private final double LIFT_SPEED = 0.2; //ACUTALLY LOWER
+	private final double LOWER_SPEED = 1; //ACTUALLY LIFT
 
     private Talon intakeMotor;
     private Talon intakeLiftMotor;
+    private Talon intakeLiftMotorTwo;
     
     public Intake() {
-    	intakeLiftMotor = new Talon(RobotMap.dumpMotorPWMPort);
     	intakeLiftMotor = new Talon(RobotMap.intakeLiftMotorPWMPort);
+    	intakeLiftMotorTwo = new Talon(RobotMap.intakeLiftMotorTwoPWMPort);
+    	intakeMotor = new Talon(RobotMap.intakeMotorPWMPort);
     }
 
     @Override
