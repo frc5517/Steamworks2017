@@ -24,7 +24,7 @@ public class AutoGearMiddle extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
-    	addSequential(new LowerIntake());
+    	addSequential(new TimedLowerIntake(1));
     	addSequential(new RaiseIntakeToPeg(1));
     	addSequential(new DriveForward(5, 0.5));
     	addSequential(new SpinIntakeRollerIn());
