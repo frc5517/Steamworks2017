@@ -25,8 +25,8 @@ public class AutoGearLeft extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     	
-    	addSequential(new LiftIntake());
-    	//TO-DO make RaiseIntakeToPeg command
+    	addSequential(new LowerIntake());
+    	addSequential(new RaiseIntakeToPeg(1));
     	addSequential(new DriveForward(3, 0.5));
     	addSequential(new TurnToAngle(-45));
     	addSequential(new DriveForward(3, 0.5));

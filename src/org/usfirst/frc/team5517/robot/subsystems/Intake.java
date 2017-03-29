@@ -14,8 +14,8 @@ public class Intake extends Subsystem {
 	
 	private final double ROLLER_IN_SPEED = 0.5;
 	private final double ROLLER_OUT_SPEED = 1;
-	private final double LIFT_SPEED = 0.2; //ACUTALLY LOWER
-	private final double LOWER_SPEED = 1; //ACTUALLY LIFT
+	private final double LIFT_SPEED = 0.2; 
+	private final double LOWER_SPEED = 1; 
 
     private Talon intakeMotor;
     private Talon intakeLiftMotor;
@@ -42,11 +42,11 @@ public class Intake extends Subsystem {
     }
     
     public void liftIntake() {
-    	intakeLiftMotor.set(-LIFT_SPEED);
+    	intakeLiftMotor.set(LIFT_SPEED);
     }
     
     public void lowerIntake() {
-    	intakeLiftMotor.set(LOWER_SPEED);
+    	intakeLiftMotor.set(-LOWER_SPEED);
     }
     
     public void stopIntakeLift() {
